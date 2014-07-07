@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="MyFirstBlog"
+  id="myeclipse.1404699105103"
+  context-root="/MyFirstBlog"
+  j2ee-spec="5.0"
+  archive="MyFirstBlog.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

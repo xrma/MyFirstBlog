@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -30,7 +31,7 @@ import com.sunray.util.SystemConstant;
  */
 @Component
 public class ArticleDAO extends BaseRedisDao<String, List<String>> implements ArticleImpl {
-
+	 private static Logger logger = Logger.getLogger(ArticleDAO.class);
     /*
      * (non-Javadoc)
      * 
@@ -38,6 +39,7 @@ public class ArticleDAO extends BaseRedisDao<String, List<String>> implements Ar
      */
     @Override
     public List<String> getArticleIdList(final Long begin, final Long end) {
+    	logger.info("getArticleIdList(ArticleDAO) begin...");
         // TODO Auto-generated method stub
         List<String> articleIdList = (List<String>) redisTemplate.execute(new RedisCallback<List<String>>() {
 
@@ -55,11 +57,13 @@ public class ArticleDAO extends BaseRedisDao<String, List<String>> implements Ar
                 return resultList;
             }
         });
+        logger.info("getArticleIdList(ArticleDAO) end.");
         return articleIdList;
     }
 
     @Override
     public Map<String, String> getArticleMap(final String articleId) {
+    	logger.info("getArticleMap(ArticleDAO) begin...");
         Map<String, String> articleMap = redisTemplate.execute(new RedisCallback<Map<String, String>>() {
 
             @Override
@@ -80,7 +84,7 @@ public class ArticleDAO extends BaseRedisDao<String, List<String>> implements Ar
                 return resultMap;
             }
         });
-
+        logger.info("getArticleMap(ArticleDAO) end.");
         return articleMap;
     }
 

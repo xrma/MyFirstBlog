@@ -3,6 +3,7 @@
  */
 package com.sunray.dao;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -23,7 +24,7 @@ import com.sunray.util.SystemConstant;
  */
 @Component
 public class SystemParameterDAO extends BaseRedisDao<String, Long> implements SystemParameterImpl {
-
+	private static Logger logger = Logger.getLogger(SystemParameterDAO.class);
     /*
      * (non-Javadoc)
      * 
@@ -31,6 +32,7 @@ public class SystemParameterDAO extends BaseRedisDao<String, Long> implements Sy
      */
     @Override
     public String getCount() {
+    	logger.info("getCount(SystemParameterDAO) begin...");
         // TODO Auto-generated method stub
         String result = (String) redisTemplate.execute(new RedisCallback<Object>() {
 
@@ -43,6 +45,7 @@ public class SystemParameterDAO extends BaseRedisDao<String, Long> implements Sy
                 return webVisitCount;
             }
         });
+        logger.info("getCount(SystemParameterDAO) end.");
         return result;
     }
 
@@ -53,6 +56,7 @@ public class SystemParameterDAO extends BaseRedisDao<String, Long> implements Sy
      */
     @Override
     public void update() {
+    	logger.info("update(SystemParameterDAO) begin...");
         // TODO Auto-generated method stub
         redisTemplate.execute(new RedisCallback<Object>() {
 
@@ -64,7 +68,7 @@ public class SystemParameterDAO extends BaseRedisDao<String, Long> implements Sy
                 redisConn.incr(webVisitCountByte);
                 return null;
             }
-
         });
+        logger.info("update(SystemParameterDAO) end.");
     }
 }

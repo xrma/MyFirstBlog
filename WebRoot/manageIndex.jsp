@@ -37,7 +37,11 @@
 					<li class="active"><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
 		        </ul>
+		        <ul class="nav navbar-nav navbar-right">
+       				<li><a href="#">发表文章</a></li>
+       			</ul>
 	        </div>
+	        
 	    </div>
 	</nav>
 	
@@ -68,13 +72,14 @@
 					
 				</div>
 				
-				<p>博客访问量：<%= Long.parseLong((String)request.getAttribute(SystemConstant.WEB_VISIT_COUNT)) + 1094L %></p>
+				<p>博客访问量：<%= request.getAttribute(SystemConstant.WEB_VISIT_COUNT) %></p>
 			</div>
 			<div class="col-xs-12 col-md-8">
 				<% for(Article article : articleList){ %>
 				
 					<h3><%= article.getTitle() %><!-- <span class="label label-default">New</span> --></h3>
 					<p><%= article.getContent() %></p>
+					<h4><small><a href="#">modify</a> | <a href="#">delete</a></small></h4>
 				
 				<% } %>
 				

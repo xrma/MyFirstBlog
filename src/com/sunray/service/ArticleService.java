@@ -35,7 +35,7 @@ public class ArticleService {
 
         for (String articleId : articleIdList) {
             Map<String, String> articleMap = articleDAO.getArticleMap(articleId);
-            Article article = new Article();
+            Article article = new Article();;
             article.setTitle(articleMap.get("title"));
             article.setContent(articleMap.get("content"));
             article.setAuthor(articleMap.get("author"));

@@ -20,27 +20,20 @@
     <![endif]-->
   </head>
   <body style="padding-top: 100px;">
-  	<div class="container">
+  	<div class="container-fluid">
 	  	<div class="row">
-	  		<div class="col-xs-6"></div>
-			<div class="col-xs-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-				    	<h3 class="panel-title">用户登录</h3>
-					</div>
-					<div class="panel-body">
-						<form action="LoginAction.do" method="post">
-						    <div class="form-group">
-						    	<h4>username:</h4>
-								<input type="text" name="userName" class="form-control" placeholder="Search"><br/>
-								<h4>password:</h4>
-								<input type="password" name="password" class="form-control" placeholder="Search">
-								<button type="submit" class="btn btn-primary navbar-btn">Sign in</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
+		  <div class="col-md-4"></div>
+		  <div class="col-md-4">
+		  	<div class="bs-callout bs-callout-danger">
+		  		<h4>登录出错！</h4>
+		  		<p>sorry,你并不是本站用户哦~</p>
+		  		<p>想加入？快联系sunray吧<a href="mailto:15010117758@163.com">15010117758@163.com</a></p>
+		  		<div class="btn-group btn-group-xs">
+		  			<button type="button" class="btn btn-danger" onclick="window.location.href='login.jsp'">return</button>
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="col-md-4"></div>
 		</div>
 	</div>
   </body>
