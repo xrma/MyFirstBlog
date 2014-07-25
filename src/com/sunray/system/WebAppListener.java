@@ -32,7 +32,7 @@ public class WebAppListener implements ServletContextListener {
         // TODO Auto-generated method stub
         
         String configPath = arg0.getServletContext().getInitParameter("system.config.path");
-        SystemEnvironment.initialize(configPath);
+        SystemEnvironment.initialize(configPath,arg0);
     }
 
 }

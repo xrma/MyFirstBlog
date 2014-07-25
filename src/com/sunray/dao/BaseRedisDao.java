@@ -3,6 +3,7 @@
  */
 package com.sunray.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
@@ -17,6 +18,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  */
 public abstract class BaseRedisDao<K, V> {
     
+	@Autowired
     protected RedisTemplate<K, V> redisTemplate;
 
     public RedisTemplate<K, V> getRedisTemplate() {

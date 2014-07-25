@@ -6,10 +6,11 @@ package com.sunray.action;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sunray.dao.SystemParameterDAO;
@@ -17,7 +18,6 @@ import com.sunray.entity.Article;
 import com.sunray.entity.User;
 import com.sunray.service.ArticleService;
 import com.sunray.service.LoginService;
-import com.sunray.system.SystemEnvironment;
 import com.sunray.util.SystemConstant;
 
 /**
@@ -29,16 +29,17 @@ import com.sunray.util.SystemConstant;
  * @ReviewTime:
  * @Company: CFCA
  */
+@Controller
 public class LoginAction {
-    private LoginService loginService = (LoginService) SystemEnvironment.APPLICATION_CONTEXT.getBean("loginService");
-    private ArticleService articleService = (ArticleService) SystemEnvironment.APPLICATION_CONTEXT.getBean("articleService");
-    private SystemParameterDAO systemParameterDAO = (SystemParameterDAO) SystemEnvironment.APPLICATION_CONTEXT.getBean("systemParameterDAO");
-
-    private final String manageIndex = "/manageIndex";
-    private final String exceptionPage = "/error";
+    @Resource
+    private LoginService loginService;
+    @Resource
+    private ArticleService articleService;
+    @Resource
+    private SystemParameterDAO systemParameterDAO;
 
     @RequestMapping("/LoginAction.do")
-    public String forward(HttpServletRequest request, HttpServletResponse response, @Valid User user, Map<String, Object> model) {
+    public String forward(HttpServletRequest request, HttpServletResponse response, User user, Map<String, Object> model) {
         boolean isExistsUser = loginService.isExistsUser(user);
         if (isExistsUser) {
         	Long begin = 0L;
@@ -46,9 +47,9 @@ public class LoginAction {
             List<Article> articleList = articleService.getAricleList(begin, end);
             model.put("articleList", articleList);
             model.put(SystemConstant.WEB_VISIT_COUNT, systemParameterDAO.getCount());
-            return manageIndex;
+            return "/manageIndex";
         } else {
-            return exceptionPage;
+            return "/error";
         }
     }
 }

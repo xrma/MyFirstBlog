@@ -6,6 +6,7 @@ package com.sunray.system;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -13,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Component;
 
 import com.sunray.dao.SystemParameterDAO;
 import com.sunray.entity.Article;
@@ -28,10 +31,12 @@ import com.sunray.util.SystemConstant;
  * @ReviewTime:
  * @Company: CFCA
  */
+@Component
 public class SystemInFilter implements Filter {
-
-    private SystemParameterDAO systemParameterDAO = (SystemParameterDAO) SystemEnvironment.APPLICATION_CONTEXT.getBean("systemParameterDAO");
-    private ArticleService articleService = (ArticleService) SystemEnvironment.APPLICATION_CONTEXT.getBean("articleService");
+    @Resource
+    private SystemParameterDAO systemParameterDAO;
+    @Resource
+    private ArticleService articleService;
 
     /*
      * (non-Javadoc)

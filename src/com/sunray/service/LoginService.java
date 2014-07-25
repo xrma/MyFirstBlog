@@ -5,7 +5,7 @@ package com.sunray.service;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.sunray.dao.LoginDAO;
 import com.sunray.entity.User;
@@ -20,7 +20,7 @@ import com.sunray.util.StringUtil;
  * @ReviewTime:
  * @Company: CFCA
  */
-@Component
+@Service
 public class LoginService {
     @Resource
     private LoginDAO loginDAO;
