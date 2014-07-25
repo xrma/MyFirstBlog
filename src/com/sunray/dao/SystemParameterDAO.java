@@ -8,7 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.sunray.impl.SystemParameterImpl;
 import com.sunray.util.SystemConstant;
@@ -22,7 +22,7 @@ import com.sunray.util.SystemConstant;
  * @ReviewTime:
  * @Company: CFCA
  */
-@Component
+@Repository
 public class SystemParameterDAO extends BaseRedisDao<String, Long> implements SystemParameterImpl {
 	private static Logger logger = Logger.getLogger(SystemParameterDAO.class);
     /*

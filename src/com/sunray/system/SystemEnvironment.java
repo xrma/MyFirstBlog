@@ -5,10 +5,11 @@ package com.sunray.system;
 
 import java.io.File;
 
+import javax.servlet.ServletContextEvent;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
 
 /** 
  * @Title: SystemEnvironment.java
@@ -21,20 +22,26 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class SystemEnvironment {
     private static Logger logger;
-    public static ApplicationContext APPLICATION_CONTEXT;
+    public static FileSystemXmlWebApplicationContext APPLICATION_CONTEXT;
     
     private final static String springConfig = "spring.xml";
     private final static String log4jConfig = "log4j.properties";
     
-    public static void initialize(String configPath){
+    public static void initialize(String configPath, ServletContextEvent servletContextEvent){
         //log4j初始化
         String log4jCof = configPath + File.separatorChar + log4jConfig;
         PropertyConfigurator.configure(log4jCof);
         logger = Logger.getLogger(SystemEnvironment.class);
-        
+        try{
         String springCof = configPath + File.separatorChar + springConfig;
-        APPLICATION_CONTEXT = new FileSystemXmlApplicationContext(springCof);
-        logger.info("spring file:" + springCof);
+        APPLICATION_CONTEXT = new FileSystemXmlWebApplicationContext();
+        APPLICATION_CONTEXT.setConfigLocation(springCof);
+        APPLICATION_CONTEXT.setServletContext(servletContextEvent.getServletContext());
+        APPLICATION_CONTEXT.refresh();
+        servletContextEvent.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, APPLICATION_CONTEXT);
+        }catch(Throwable e){
+            e.printStackTrace();
+        }
     }
 
 }

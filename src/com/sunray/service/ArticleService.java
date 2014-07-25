@@ -9,7 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.sunray.dao.ArticleDAO;
 import com.sunray.entity.Article;
@@ -23,7 +23,7 @@ import com.sunray.entity.Article;
  * @ReviewTime:
  * @Company: CFCA
  */
-@Component
+@Service
 public class ArticleService {
     @Resource
     private ArticleDAO articleDAO;

@@ -15,7 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.sunray.impl.ArticleImpl;
 import com.sunray.util.SystemConstant;
@@ -29,7 +29,7 @@ import com.sunray.util.SystemConstant;
  * @ReviewTime:
  * @Company: CFCA
  */
-@Component
+@Repository
 public class ArticleDAO extends BaseRedisDao<String, List<String>> implements ArticleImpl {
 	 private static Logger logger = Logger.getLogger(ArticleDAO.class);
     /*

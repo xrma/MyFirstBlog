@@ -5,19 +5,29 @@
 	<display-name>Archetype Created Web Application</display-name>
 	<context-param>
 		<param-name>system.config.path</param-name>
-		<param-value>./MyFirstWebConfig</param-value>
+		<param-value>C:\Users\sunray\git\MyFirstBlog\MyFirstWebConfig</param-value>
 	</context-param>
 
 	<listener>
 		<listener-class>com.sunray.system.WebAppListener</listener-class>
 	</listener>
+	
+	
+    <filter>
+        <filter-name>SystemInFilterProxy</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetBeanName</param-name>
+            <param-value>systemInFilter</param-value>
+        </init-param>
+    </filter>
 
-	<filter>
-		<filter-name>SystemInFilter</filter-name>
-		<filter-class>com.sunray.system.SystemInFilter</filter-class>
-	</filter>
+<!--	<filter>-->
+<!--		<filter-name>SystemInFilter</filter-name>-->
+<!--		<filter-class>com.sunray.system.SystemInFilter</filter-class>-->
+<!--	</filter>-->
 	<filter-mapping>
-		<filter-name>SystemInFilter</filter-name>
+		<filter-name>SystemInFilterProxy</filter-name>
 		<url-pattern>/index.jsp</url-pattern>
 	</filter-mapping>
 

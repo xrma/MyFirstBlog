@@ -32,9 +32,9 @@
 						<form action="LoginAction.do" method="post">
 						    <div class="form-group">
 						    	<h4>username:</h4>
-								<input type="text" name="userName" class="form-control" placeholder="Search"><br/>
+								<input type="text" name="userName" class="form-control" placeholder="username"><br/>
 								<h4>password:</h4>
-								<input type="password" name="password" class="form-control" placeholder="Search">
+								<input type="password" name="password" class="form-control" placeholder="password">
 								<button type="submit" class="btn btn-primary navbar-btn">Sign in</button>
 							</div>
 						</form>
