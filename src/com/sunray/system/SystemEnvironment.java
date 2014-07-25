@@ -33,14 +33,20 @@ public class SystemEnvironment {
         PropertyConfigurator.configure(log4jCof);
         logger = Logger.getLogger(SystemEnvironment.class);
         try{
-        String springCof = configPath + File.separatorChar + springConfig;
-        APPLICATION_CONTEXT = new FileSystemXmlWebApplicationContext();
-        APPLICATION_CONTEXT.setConfigLocation(springCof);
-        APPLICATION_CONTEXT.setServletContext(servletContextEvent.getServletContext());
-        APPLICATION_CONTEXT.refresh();
-        servletContextEvent.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, APPLICATION_CONTEXT);
+	        String springCof = configPath + File.separatorChar + springConfig;
+	        APPLICATION_CONTEXT = new FileSystemXmlWebApplicationContext();
+	        APPLICATION_CONTEXT.setConfigLocation(springCof);
+	        APPLICATION_CONTEXT.setServletContext(servletContextEvent.getServletContext());
+	        APPLICATION_CONTEXT.refresh();
+	        servletContextEvent.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, APPLICATION_CONTEXT);
+	        logger.info("spring config：" + springCof);
+	        
+	        System.out.println("==============================");
+	        System.out.println("xrma's blog start!");
+	        System.out.println("==============================");
         }catch(Throwable e){
             e.printStackTrace();
+            logger.error(e);
         }
     }
 

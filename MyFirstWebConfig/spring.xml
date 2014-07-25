@@ -14,7 +14,7 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     	<property name="locations">
     		<list>
-    			<value>C:\Users\sunray\git\MyFirstBlog\MyFirstWebConfig\sys.ini</value>
+    			<value>D:\代码\MyFirstBlog\MyFirstBlog\MyFirstWebConfig\sys.ini</value>
     		</list>
     	</property>
     </bean>

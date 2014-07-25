@@ -43,9 +43,8 @@
 	
 	<div class="jumbotron">
   		<div class="container">
-		  <h1>Hello, world!</h1>
-		  <p>...</p>
-		  <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+		  <h1>Hello, sunray!</h1>
+		  <p>this is my first blog</p>
 	  	</div>
 	</div>
 	

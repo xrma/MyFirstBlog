@@ -5,7 +5,7 @@
 	<display-name>Archetype Created Web Application</display-name>
 	<context-param>
 		<param-name>system.config.path</param-name>
-		<param-value>C:\Users\sunray\git\MyFirstBlog\MyFirstWebConfig</param-value>
+		<param-value>D:\代码\MyFirstBlog\MyFirstBlog\MyFirstWebConfig</param-value>
 	</context-param>
 
 	<listener>

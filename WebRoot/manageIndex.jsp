@@ -38,7 +38,7 @@
 					<li><a href="#">Link</a></li>
 		        </ul>
 		        <ul class="nav navbar-nav navbar-right">
-       				<li><a href="#">发表文章</a></li>
+       				<li><a href="publishedArticlesForword.do">发表文章</a></li>
        			</ul>
 	        </div>
 	        
@@ -47,9 +47,8 @@
 	
 	<div class="jumbotron">
   		<div class="container">
-		  <h1>Hello, world!</h1>
-		  <p>...</p>
-		  <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+		  <h1>Hello, sunray!</h1>
+		  <p>this is my first blog</p>
 	  	</div>
 	</div>
 	
