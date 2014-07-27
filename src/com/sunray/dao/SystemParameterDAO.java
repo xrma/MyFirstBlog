@@ -34,10 +34,10 @@ public class SystemParameterDAO extends BaseRedisDao<String, Long> implements Sy
     public String getCount() {
     	logger.info("getCount(SystemParameterDAO) begin...");
         // TODO Auto-generated method stub
-        String result = (String) redisTemplate.execute(new RedisCallback<Object>() {
+        String result = redisTemplate.execute(new RedisCallback<String>() {
 
             @Override
-            public Object doInRedis(RedisConnection redisConn) throws DataAccessException {
+            public String doInRedis(RedisConnection redisConn) throws DataAccessException {
                 // TODO Auto-generated method stub
                 RedisSerializer<String> redisSerializer = redisTemplate.getStringSerializer();
                 byte[] webVisitCountByte = redisSerializer.serialize(SystemConstant.WEB_VISIT_COUNT);

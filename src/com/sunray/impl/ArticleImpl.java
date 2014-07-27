@@ -6,6 +6,8 @@ package com.sunray.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.sunray.entity.Article;
+
 /** 
  * @Title: ArticleImpl.java
  * @Description: 
@@ -29,4 +31,8 @@ public interface ArticleImpl {
      * @return
      */
     Map<String, String> getArticleMap(final String articleId);
+    
+    Long getArticleCounts();
+    
+    void saveArticle(String articleId, Article article);
 }

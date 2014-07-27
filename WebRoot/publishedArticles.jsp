@@ -12,6 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <title>my first web</title>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script> 
 	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script> 
 	<!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -22,10 +23,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <script type="text/javascript">
+    	var articleSortListStr = eval("${articleSortListStr}");
+    	
+    	function getArticleSort(){
+    		$.each(articleSortListStr, function(index, articleSort){
+			    $("#articleSortId")[0].add(new Option(articleSort[1],articleSort[0]));
+			});
+    	}
+    	
+    	function addSort(){
+    		$("#addSortTr").show();
+    	}
+    	
+    	function cancelAddSort(){
+    		$("#addSortTr").hide();
+    		$("#newSort").val("");
+    	}
+    	
+    	$(document).ready(function(){
+		  $("#addSort").click(function(){
+			  $.ajax({
+				url : "addArticleSort.do",
+				data : {
+					newArticleSortName : $("#newSort").val()
+				},
+				async : false,
+				type : 'post',
+				cache : false,
+				dataType : 'json',
+				success : function(data) {
+					var flag = data.flag;
+					if(flag){
+						articleSortListStr = eval(data.articleSortListStr);
+						$("#articleSortId").find("option").remove();
+						getArticleSort();
+						$("#addSortTr").hide();
+						$("#newSort").val("");
+						alert("添加成功！");
+					}else{
+						$("#addError").html("<h5>" + data.errorMsg + "</h5>");
+					}
+				},
+				error : function(data) {
+					$("#addError").html("<h5>添加失败</h5>");
+				}
+			  });
+			});
+		 });
+    </script>
 
   </head>
   
-  <body>
+  <body onload="getArticleSort();">
 <%--    <textarea id="editor1" class="ckeditor">Sample Text</textarea> --%>
 
 		<nav class="navbar" role="navigation">
@@ -58,6 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  					<td>
 	  						<h5>
 	  							发布时间：${currentTime}
+	  							<input type="hidden" name="time" value="${currentTime}"/>
 	  						</h5>
 	  					</td>
 	  				</tr>
@@ -69,18 +121,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				</tr>
 	  				<tr>
 	  					<td>
-	  						<h4><button type="submit" class="btn btn-primary btn-sm">发表文章</button></h4>
+	  						<h5>
+	  							文章分类：
+	  							<select id="articleSortId" name="articleSortId"></select>
+	  							<div class="btn-group" >
+								  <a href="javascript: addSort();">增加分类</a>
+								</div>
+	  						</h5>
+	  					</td>
+	  				</tr>
+	  				<tr id="addSortTr" style="display: none;">
+	  					<td>
+	  						<h5>
+	  							分类名称：<input type="text" id="newSort"/>
+	  							<button type="button" name="addSort" id="addSort" class="btn btn-primary btn-xs">确定</button>
+	  							<a href="javascript: cancelAddSort();">取消</a>
+	  						</h5>
+	  						<div class="bs-callout bs-callout-danger" id="addError">
+	  						</div>
 	  					</td>
 	  				</tr>
 	  				<tr>
 	  					<td>
 	  						<h5>
-	  							分类：
-	  							<select></select>
-	  							<div class="btn-group">
-								  <a href="#">增加分类</a>
-								</div>
+	  							文章标签：<input name="tags"/>标签用“空格”隔开。
 	  						</h5>
+	  					</td>
+	  				</tr>
+	  				<tr>
+	  					<td>
+	  						<h4><button type="submit" class="btn btn-primary btn-sm">发表文章</button></h4>
 	  					</td>
 	  				</tr>
 	  			</table>

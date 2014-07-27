@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Repository;
 
+import com.sunray.entity.Article;
 import com.sunray.impl.ArticleImpl;
 import com.sunray.util.SystemConstant;
 
@@ -70,7 +71,7 @@ public class ArticleDAO extends BaseRedisDao<String, List<String>> implements Ar
             public Map<String, String> doInRedis(RedisConnection connection) throws DataAccessException {
                 // TODO Auto-generated method stub
                 RedisSerializer<String> redisSerializer = redisTemplate.getStringSerializer();
-                byte[] articleIdKEY = redisSerializer.serialize(articleId);
+                byte[] articleIdKEY = redisSerializer.serialize(SystemConstant.ARTICLE_TAGS_START + articleId);
                 Map<byte[], byte[]> articleMapByte = connection.hGetAll(articleIdKEY);
 
                 Map<String, String> resultMap = new HashMap<String, String>();
@@ -87,5 +88,51 @@ public class ArticleDAO extends BaseRedisDao<String, List<String>> implements Ar
         logger.info("getArticleMap(ArticleDAO) end.");
         return articleMap;
     }
+
+	@Override
+	public Long getArticleCounts() {
+		logger.info("getArticleCounts(ArticleDAO) begin...");
+		// TODO Auto-generated method stub
+		Long result = redisTemplate.execute(new RedisCallback<Long>() {
+
+			@Override
+			public Long doInRedis(RedisConnection redisConnection) throws DataAccessException {
+				// TODO Auto-generated method stub
+				RedisSerializer<String> redisSerializer = redisTemplate.getStringSerializer();
+                byte[] articleCountsKEY = redisSerializer.serialize(SystemConstant.ARTICLE_COUNTS);
+                Long result = redisConnection.incr(articleCountsKEY);
+                return result;
+			}
+			
+		});
+		logger.info("getArticleCounts(ArticleDAO) end.");
+		return result;
+	}
+
+	@Override
+	public void saveArticle(final String articleIdKey, final Article article) {
+		logger.info("saveArticle(ArticleDAO) begin...");
+		// TODO Auto-generated method stub
+		redisTemplate.execute(new RedisCallback<Object>() {
+
+			@Override
+			public Object doInRedis(RedisConnection redisConnection) throws DataAccessException {
+				// TODO Auto-generated method stub
+				RedisSerializer<String> redisSerializer = redisTemplate.getStringSerializer();
+                byte[] articleKEY = redisSerializer.serialize(articleIdKey);
+                
+                Map<byte[], byte[]> articleMapByte = new HashMap<byte[], byte[]>();
+            	articleMapByte.put(redisSerializer.serialize(SystemConstant.ARTICLE_TITLE), redisSerializer.serialize(article.getTitle()));
+            	articleMapByte.put(redisSerializer.serialize(SystemConstant.ARTICLE_AUTHOR), redisSerializer.serialize(article.getAuthor()));
+            	articleMapByte.put(redisSerializer.serialize(SystemConstant.ARTICLE_TIME), redisSerializer.serialize(article.getTime()));
+            	articleMapByte.put(redisSerializer.serialize(SystemConstant.ARTICLE_CONTENT), redisSerializer.serialize(article.getContent()));
+            	articleMapByte.put(redisSerializer.serialize(SystemConstant.ARTICLE_SORT_ID), redisSerializer.serialize(article.getArticleSortId()));
+                redisConnection.hMSet(articleKEY, articleMapByte);
+                
+				return null;
+			}
+		});
+		logger.info("saveArticle(ArticleDAO) end.");
+	}
 
 }
