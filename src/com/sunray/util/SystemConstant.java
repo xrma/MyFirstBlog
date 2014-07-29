@@ -29,9 +29,12 @@ public class SystemConstant {
 	public static final String ARTICLE_TIME = "time";
 	public static final String ARTICLE_CONTENT = "content";
 	public static final String ARTICLE_SORT_ID = "sortId";
+	
+	public static final String SORT_NAME_START = "sort:";
+	public static final String SORT_NAME_END = ":name";
 
 	// 文章id List 每篇文章的id单独存在一个list里，分页用
-	public static final String ARTICLE_ID_LIST = "article:articleIdList";
+	public static final String ARTICLE_ID_LIST = "articleIdList";
 	public static final int pageCount = 5;
 
 }

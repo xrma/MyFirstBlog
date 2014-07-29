@@ -9,27 +9,36 @@ import java.io.Serializable;
  * @author Sunray
  * 
  */
-public class ArticleSort implements Serializable{
-	
-	private static final long serialVersionUID = 6140783406706755990L;
-	
-	private Long articleSortId;
-	private String articleSortName;
+public class ArticleSort implements Serializable {
 
-	public Long getArticleSortId() {
-		return articleSortId;
-	}
+    private static final long serialVersionUID = 6140783406706755990L;
 
-	public void setArticleSortId(Long articleSortId) {
-		this.articleSortId = articleSortId;
-	}
+    private Long articleSortId;
+    private String articleSortName;
+    private Integer articleCount;
 
-	public String getArticleSortName() {
-		return articleSortName;
-	}
+    public Long getArticleSortId() {
+        return articleSortId;
+    }
 
-	public void setArticleSortName(String articleSortName) {
-		this.articleSortName = articleSortName;
-	}
+    public void setArticleSortId(Long articleSortId) {
+        this.articleSortId = articleSortId;
+    }
+
+    public String getArticleSortName() {
+        return articleSortName;
+    }
+
+    public void setArticleSortName(String articleSortName) {
+        this.articleSortName = articleSortName;
+    }
+
+    public Integer getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(Integer articleCount) {
+        this.articleCount = articleCount;
+    }
 
 }

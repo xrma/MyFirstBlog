@@ -3,20 +3,25 @@
  */
 package com.sunray.action;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sunray.dao.SystemParameterDAO;
 import com.sunray.entity.Article;
+import com.sunray.entity.ArticleSort;
 import com.sunray.entity.User;
 import com.sunray.service.ArticleService;
+import com.sunray.service.ArticleSortService;
 import com.sunray.service.LoginService;
 import com.sunray.util.SystemConstant;
 
@@ -31,25 +36,74 @@ import com.sunray.util.SystemConstant;
  */
 @Controller
 public class LoginAction {
-    @Resource
-    private LoginService loginService;
-    @Resource
-    private ArticleService articleService;
-    @Resource
-    private SystemParameterDAO systemParameterDAO;
+	@Resource
+	private LoginService loginService;
+	@Resource
+	private ArticleService articleService;
+	@Resource
+	private SystemParameterDAO systemParameterDAO;
+	@Resource
+	private ArticleSortService articleSortService;
 
-    @RequestMapping("/LoginAction.do")
-    public String forward(HttpServletRequest request, HttpServletResponse response, User user, Map<String, Object> model) {
-        boolean isExistsUser = loginService.isExistsUser(user);
-        if (isExistsUser) {
-        	Long begin = 0L;
-            Long end = 9L;
-            List<Article> articleList = articleService.getAricleList(begin, end);
-            model.put("articleList", articleList);
-            model.put(SystemConstant.WEB_VISIT_COUNT, systemParameterDAO.getCount());
-            return "/manageIndex";
-        } else {
-            return "/error";
-        }
-    }
+	@RequestMapping("/index.in")
+	public String goToIndex(Model model) {
+		// List<Article> articleList = this.getArticle();
+		// request.setAttribute("articleList", articleList);
+		// 1. 访问量
+		Long visitCount = Long.parseLong(systemParameterDAO.getCount()) + 1953L;
+		Map<Long, ArticleSort> articleSortMap = this.initPage();
+		// 文章列表
+		List<Article> articleList = this.getArticle();
+		model.addAttribute("visitCount", visitCount);
+		model.addAttribute("articleSortMap", articleSortMap);
+		model.addAttribute("articleList", articleList);
+		return "index";
+	}
+
+	private List<Article> getArticle() {
+		Long begin = 0L;
+		Long end = 9L;
+		List<Article> articleList = articleService.getAricleList(begin, end);
+		return articleList;
+	}
+
+	@RequestMapping("/LoginAction.do")
+	public String forward(HttpSession session, HttpServletRequest request, HttpServletResponse response, User user, Model model) {
+		boolean isExistsUser = loginService.isExistsUser(user);
+		if (isExistsUser) {
+		    session.setAttribute("user", user);
+			// 1. 访问量
+			Long visitCount = Long.parseLong(systemParameterDAO.getCount());
+			Map<Long, ArticleSort> articleSortMap = this.initPage();
+			// 文章列表
+			List<Article> articleList = this.getArticle();
+			model.addAttribute("visitCount", visitCount);
+			model.addAttribute("articleSortMap", articleSortMap);
+			model.addAttribute("articleList", articleList);
+			return "/manageIndex";
+		} else {
+			return "/error";
+		}
+	}
+
+	private Map<Long, ArticleSort> initPage() {
+		// 2. 获得所有文章分类
+		// 2.1 查询文章分类最大值
+		Long maxSortId = articleSortService.getArticleSortId();
+		// 2.2 查询所有文章分类
+		Map<Long, ArticleSort> articleSortMap = new HashMap<Long, ArticleSort>();
+		if (maxSortId != null) {
+			for (int i = 1; i <= maxSortId; i++) {
+				ArticleSort articleSort = new ArticleSort();
+				articleSort.setArticleSortId(Long.valueOf(i));
+				String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + i + SystemConstant.SORT_NAME_END);
+				articleSort.setArticleSortName(articleSortName);
+
+				List<String> articleIdList = articleSortService.getArticleIdList(i + "");
+				articleSort.setArticleCount(articleIdList.size());
+				articleSortMap.put(articleSort.getArticleSortId(), articleSort);
+			}
+		}
+		return articleSortMap;
+	}
 }

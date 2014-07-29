@@ -3,6 +3,8 @@
  */
 package com.sunray.impl;
 
+import java.util.List;
+
 /**
  * @author Sunray
  *
@@ -17,4 +19,6 @@ public interface ArticleSortImpl {
 	public Long getIncrArticleSortId();
 	
 	public void saveArticleSortList(String articleId, String articleSortId);
+	
+	public List<String> getArticleIdByArticleSortId(String articleSortKey);
 }

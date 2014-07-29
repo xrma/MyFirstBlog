@@ -71,7 +71,7 @@ public class ArticleDAO extends BaseRedisDao<String, List<String>> implements Ar
             public Map<String, String> doInRedis(RedisConnection connection) throws DataAccessException {
                 // TODO Auto-generated method stub
                 RedisSerializer<String> redisSerializer = redisTemplate.getStringSerializer();
-                byte[] articleIdKEY = redisSerializer.serialize(SystemConstant.ARTICLE_TAGS_START + articleId);
+                byte[] articleIdKEY = redisSerializer.serialize(articleId);
                 Map<byte[], byte[]> articleMapByte = connection.hGetAll(articleIdKEY);
 
                 Map<String, String> resultMap = new HashMap<String, String>();
@@ -133,6 +133,26 @@ public class ArticleDAO extends BaseRedisDao<String, List<String>> implements Ar
 			}
 		});
 		logger.info("saveArticle(ArticleDAO) end.");
+	}
+
+	@Override
+	public void saveArticleIdList(final String articleIdKey) {
+		logger.info("saveArticleIdList(ArticleDAO) begin...");
+		// TODO Auto-generated method stub
+		
+		redisTemplate.execute(new RedisCallback<Object>() {
+
+			@Override
+			public Object doInRedis(RedisConnection redisConnection) throws DataAccessException {
+				// TODO Auto-generated method stub
+				RedisSerializer<String> redisSerializer = redisTemplate.getStringSerializer();
+                byte[] articleIdKEY = redisSerializer.serialize(articleIdKey);
+                redisConnection.lPush(redisSerializer.serialize(SystemConstant.ARTICLE_ID_LIST), articleIdKEY);
+				return null;
+			}
+			
+		});
+		logger.info("saveArticleIdList(ArticleDAO) end.");
 	}
 
 }

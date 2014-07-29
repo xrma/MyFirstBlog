@@ -3,11 +3,14 @@
  */
 package com.sunray.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.sunray.dao.ArticleSortDAO;
+import com.sunray.util.SystemConstant;
 
 /**
  * @author Sunray
@@ -32,5 +35,10 @@ public class ArticleSortService {
 	
 	public String getArticleSortName(String articleSortKey){
 		return articleSortDAO.getArticleSortName(articleSortKey);
+	}
+	
+	public List<String> getArticleIdList(String articleSortId){
+	    String articleSortKey = SystemConstant.SORT + articleSortId;
+	    return articleSortDAO.getArticleIdByArticleSortId(articleSortKey);
 	}
 }

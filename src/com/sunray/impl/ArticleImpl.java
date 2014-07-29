@@ -35,4 +35,6 @@ public interface ArticleImpl {
     Long getArticleCounts();
     
     void saveArticle(String articleId, Article article);
+    
+    void saveArticleIdList(String articleId);
 }

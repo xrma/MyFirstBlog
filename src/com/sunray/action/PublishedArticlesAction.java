@@ -55,9 +55,11 @@ public class PublishedArticlesAction {
 		Long articleIdMax = articleService.getArticleCounts();
 		// 2.存储文章基本信息【title，author，time，content】
 		articleService.saveArticle(articleIdMax, article);
-		// 3.存储文章所属分类
+		// 3. List存储文章id
+		articleService.saveArticleIdList(articleIdMax);
+		// 4.存储文章所属分类
 		articleService.saveArticleSortList(article.getArticleSortId(), articleIdMax + "");
-		// 4.存文章标签
+		// 5.存文章标签
 		String tags = article.getTags();
 		String[] tagsArr = tags.split(" ");
 		articleService.saveArticleTags(articleIdMax + "", tagsArr);
@@ -70,7 +72,7 @@ public class PublishedArticlesAction {
 		
 		Article articleQuery = articleService.getArticle(articleIdMax + "");
 		String articleSortId = articleQuery.getArticleSortId();
-		String articleSortName = articleSortService.getArticleSortName("sort:" + articleSortId + ":name");
+		String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + articleSortId + SystemConstant.SORT_NAME_END);
 		List<String> articleTagsNameList = articleTagsService.getArticleTags(SystemConstant.ARTICLE_TAGS_START + articleIdMax + SystemConstant.ARTICLE_TAGS_END);
 		model.addAttribute("title", articleQuery.getTitle());
 		model.addAttribute("time", articleQuery.getTime());
@@ -108,7 +110,7 @@ public class PublishedArticlesAction {
 			for (Long i = 1L; i <= articleSortMaxId; i++) {
 				ArticleSort articleSort = new ArticleSort();
 				articleSort.setArticleSortId(i);
-				String articleSortName = articleSortService.getArticleSortName("sort:" + i + ":name");
+				String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + i + SystemConstant.SORT_NAME_END);
 				articleSort.setArticleSortName(articleSortName);
 				articleSortList.add(articleSort);
 			}

@@ -4,7 +4,6 @@
 package com.sunray.system;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.Filter;
@@ -18,9 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
 import com.sunray.dao.SystemParameterDAO;
-import com.sunray.entity.Article;
-import com.sunray.service.ArticleService;
-import com.sunray.util.SystemConstant;
 
 /**
  * @Title: SystemInFilter.java
@@ -35,8 +31,6 @@ import com.sunray.util.SystemConstant;
 public class SystemInFilter implements Filter {
     @Resource
     private SystemParameterDAO systemParameterDAO;
-    @Resource
-    private ArticleService articleService;
 
     /*
      * (non-Javadoc)
@@ -60,9 +54,6 @@ public class SystemInFilter implements Filter {
         if (request.getSession().isNew()) {
             systemParameterDAO.update();
         }
-        request.setAttribute(SystemConstant.WEB_VISIT_COUNT, systemParameterDAO.getCount());
-        List<Article> articleList = this.getArticle();
-        request.setAttribute("articleList", articleList);
         chain.doFilter(req, resp);
     }
 
@@ -75,12 +66,4 @@ public class SystemInFilter implements Filter {
         // TODO Auto-generated method stub
 
     }
-    
-    private List<Article> getArticle(){
-        Long begin = 0L;
-        Long end = 9L;
-        List<Article> articleList = articleService.getAricleList(begin, end);
-        return articleList;
-    }
-
 }

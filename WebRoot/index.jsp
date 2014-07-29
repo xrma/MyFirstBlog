@@ -1,10 +1,5 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.sunray.util.SystemConstant"%>
-<%@page import="java.util.List"%>
-<%@page import="com.sunray.entity.Article"%>
-<%
-	List<Article> articleList = (List<Article>) request.getAttribute("articleList");
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
@@ -43,8 +38,8 @@
 	
 	<div class="jumbotron">
   		<div class="container">
-		  <h1>Hello, sunray!</h1>
-		  <p>this is my first blog</p>
+		  <h1>Hello, Sunray!</h1>
+		  <p>This is my first blog</p>
 	  	</div>
 	</div>
 	
@@ -52,31 +47,31 @@
 		<div class="row">
 			<div class="col-xs-6 col-md-4">
 				<div class="panel panel-primary">
-				<div class="panel-heading">title</div>
+				<div class="panel-heading">文章分类</div>
 				
 				<!-- List group -->
 				    <div class="list-group">
-						  <a href="#" class="list-group-item"><span class="badge">14</span>
+						  <%--<a href="#" class="list-group-item"><span class="badge">14</span>
 						    Cras justo odio
-						  </a>
-						  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-						  <a href="#" class="list-group-item">Morbi leo risus</a>
-						  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-						  <a href="#" class="list-group-item">Vestibulum at eros</a>
+						  </a>--%>
+						  <c:if test="${!empty articleSortMap}">
+							  <c:forEach items="${articleSortMap}" var="articleSortMap">
+							  	<a href="#" class="list-group-item"><span class="badge">${articleSortMap.value.articleCount}</span>${articleSortMap.value.articleSortName}</a>
+							  </c:forEach>
+						  </c:if>
 					</div>
 					
 				</div>
 				
-				<p>博客访问量：<%= Long.parseLong((String)request.getAttribute(SystemConstant.WEB_VISIT_COUNT)) + 1094L %></p>
+				<p>博客访问量：${visitCount}</p>
 			</div>
 			<div class="col-xs-12 col-md-8">
-				<% for(Article article : articleList){ %>
-				
-					<h3><%= article.getTitle() %><!-- <span class="label label-default">New</span> --></h3>
-					<p><%= article.getContent() %></p>
-				
-				<% } %>
-				
+				<c:if test="${!empty articleList}">
+					<c:forEach items="${articleList}" var="articleList">
+						<h3>${articleList.title}<!-- <span class="label label-default">New</span> --></h3>
+						<p>${articleList.content}</p>
+					</c:forEach>
+				</c:if>
 				<ul class="pagination">
 				  <li class="disabled"><a href="#">&laquo;</a></li>
 				  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
@@ -86,7 +81,6 @@
 				  <li><a href="#">5</a></li>
 				  <li><a href="#">&raquo;</a></li>
 				</ul>
-			
 			</div>
 		</div>
 	</div>

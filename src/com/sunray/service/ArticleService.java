@@ -43,11 +43,11 @@ public class ArticleService {
         for (String articleId : articleIdList) {
             Map<String, String> articleMap = articleDAO.getArticleMap(articleId);
             Article article = new Article();
-            article.setTitle(articleMap.get("title"));
-            article.setContent(articleMap.get("content"));
-            article.setAuthor(articleMap.get("author"));
-            article.setArticleSortId(articleMap.get("slug"));
-            article.setTime(articleMap.get("time"));
+        	article.setTitle(articleMap.get(SystemConstant.ARTICLE_TITLE));
+            article.setContent(articleMap.get(SystemConstant.ARTICLE_CONTENT));
+            article.setAuthor(articleMap.get(SystemConstant.ARTICLE_AUTHOR));
+            article.setTime(articleMap.get(SystemConstant.ARTICLE_TIME));
+            article.setArticleSortId(articleMap.get(SystemConstant.ARTICLE_SORT_ID));
             articleList.add(article);
         }
 
@@ -55,7 +55,7 @@ public class ArticleService {
     }
     
     public Article getArticle(String articleId){
-    	Map<String, String> articleMap = articleDAO.getArticleMap(articleId);
+    	Map<String, String> articleMap = articleDAO.getArticleMap(SystemConstant.ARTICLE_TAGS_START + articleId);
     	Article article = new Article();;
     	article.setTitle(articleMap.get(SystemConstant.ARTICLE_TITLE));
         article.setContent(articleMap.get(SystemConstant.ARTICLE_CONTENT));
@@ -70,9 +70,14 @@ public class ArticleService {
     }
     
     public void saveArticle(Long aricleId, Article article){
-    	String articleKey = "article:" + aricleId;
+    	String articleKey = SystemConstant.ARTICLE_TAGS_START + aricleId;
     	article.setAuthor("xrma");
     	articleDAO.saveArticle(articleKey, article);
+    }
+    
+    public void saveArticleIdList(Long aricleId){
+    	String articleIdKey = SystemConstant.ARTICLE_TAGS_START + aricleId;
+    	articleDAO.saveArticleIdList(articleIdKey);
     }
     
     public void saveArticleSortList(String articleSortId, String articleId){

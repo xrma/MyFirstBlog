@@ -3,6 +3,7 @@
  */
 package com.sunray.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -123,5 +124,28 @@ public class ArticleSortDAO extends BaseRedisDao<String, List<String>> implement
 		});
 		logger.info("saveArticleSortList(ArticleSortDAO) begin...");
 	}
+
+    @Override
+    public List<String> getArticleIdByArticleSortId(final String articleSortKey) {
+        // TODO Auto-generated method stub
+        logger.info("getArticleIdByArticleSortId(ArticleSortDAO) begin...");
+        List<String> result =redisTemplate.execute(new RedisCallback<List<String>>() {
+
+            @Override
+            public List<String> doInRedis(RedisConnection redisConnection) throws DataAccessException {
+                // TODO Auto-generated method stub
+                RedisSerializer<String> redisSerializer = redisTemplate.getStringSerializer();
+                byte[] articleSortIdKEYByte = redisSerializer.serialize(articleSortKey);
+                List<byte[]> articleIdByteList = redisConnection.lRange(articleSortIdKEYByte, 0L, -1L);
+                List<String> articleIdList = new ArrayList<String>();
+                for(byte[] articleIdByte : articleIdByteList){
+                    articleIdList.add(redisSerializer.deserialize(articleIdByte));
+                }
+                return articleIdList;
+            }
+        });
+        logger.info("getArticleIdByArticleSortId(ArticleSortDAO) end.");
+        return result;
+    }
 
 }

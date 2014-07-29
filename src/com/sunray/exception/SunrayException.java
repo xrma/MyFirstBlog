@@ -10,6 +10,7 @@ package com.sunray.exception;
 public class SunrayException extends Exception {
 	private static final long serialVersionUID = 7399418316891475577L;
 	private String errorMessage;
+	private String errorCode;
 	
 	public String getErrorMessage() {
 		return errorMessage;
@@ -18,8 +19,14 @@ public class SunrayException extends Exception {
 		this.errorMessage = errorMessage;
 	}
 	
-	public SunrayException(String errorCode, String errorMessage){
-		super(errorCode);
+	public String getErrorCode() {
+        return errorCode;
+    }
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+    public SunrayException(String errorCode, String errorMessage){
+		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 	}
 }
