@@ -68,7 +68,7 @@
 			<div class="col-xs-12 col-md-8">
 				<c:if test="${!empty articleList}">
 					<c:forEach items="${articleList}" var="articleList">
-						<h3>${articleList.title}<!-- <span class="label label-default">New</span> --></h3>
+						<h3><a href="ArticleDetail.login?articleId=${articleList.articleId}">${articleList.title}</a></h3>
 						<p>${articleList.content}</p>
 					</c:forEach>
 				</c:if>

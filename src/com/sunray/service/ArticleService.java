@@ -43,6 +43,7 @@ public class ArticleService {
         for (String articleId : articleIdList) {
             Map<String, String> articleMap = articleDAO.getArticleMap(articleId);
             Article article = new Article();
+            article.setArticleId(articleId.replace(SystemConstant.ARTICLE_TAGS_START, ""));
         	article.setTitle(articleMap.get(SystemConstant.ARTICLE_TITLE));
             article.setContent(articleMap.get(SystemConstant.ARTICLE_CONTENT));
             article.setAuthor(articleMap.get(SystemConstant.ARTICLE_AUTHOR));
@@ -57,6 +58,7 @@ public class ArticleService {
     public Article getArticle(String articleId){
     	Map<String, String> articleMap = articleDAO.getArticleMap(SystemConstant.ARTICLE_TAGS_START + articleId);
     	Article article = new Article();;
+    	article.setArticleId(articleId);
     	article.setTitle(articleMap.get(SystemConstant.ARTICLE_TITLE));
         article.setContent(articleMap.get(SystemConstant.ARTICLE_CONTENT));
         article.setAuthor(articleMap.get(SystemConstant.ARTICLE_AUTHOR));

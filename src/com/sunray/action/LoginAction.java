@@ -22,6 +22,7 @@ import com.sunray.entity.ArticleSort;
 import com.sunray.entity.User;
 import com.sunray.service.ArticleService;
 import com.sunray.service.ArticleSortService;
+import com.sunray.service.ArticleTagsService;
 import com.sunray.service.LoginService;
 import com.sunray.util.SystemConstant;
 
@@ -44,6 +45,8 @@ public class LoginAction {
 	private SystemParameterDAO systemParameterDAO;
 	@Resource
 	private ArticleSortService articleSortService;
+	@Resource
+	public ArticleTagsService articleTagsService;
 
 	@RequestMapping("/index.in")
 	public String goToIndex(Model model) {
@@ -67,7 +70,7 @@ public class LoginAction {
 		return articleList;
 	}
 
-	@RequestMapping("/LoginAction.do")
+	@RequestMapping("/LoginAction.login")
 	public String forward(HttpSession session, HttpServletRequest request, HttpServletResponse response, User user, Model model) {
 		boolean isExistsUser = loginService.isExistsUser(user);
 		if (isExistsUser) {
@@ -84,6 +87,33 @@ public class LoginAction {
 		} else {
 			return "/error";
 		}
+	}
+	
+	@RequestMapping("/GoBackToLogin.do")
+	public String goBackToLogin(Model model){
+		Long visitCount = Long.parseLong(systemParameterDAO.getCount());
+		Map<Long, ArticleSort> articleSortMap = this.initPage();
+		// 文章列表
+		List<Article> articleList = this.getArticle();
+		model.addAttribute("visitCount", visitCount);
+		model.addAttribute("articleSortMap", articleSortMap);
+		model.addAttribute("articleList", articleList);
+		return "/manageIndex";
+	}
+	
+	@RequestMapping("/ArticleDetail.login")
+	public String getArticle(String articleId, Model model){
+		Article article = articleService.getArticle(articleId);
+		String articleSortId = article.getArticleSortId();
+		String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + articleSortId + SystemConstant.SORT_NAME_END);
+		List<String> articleTagsNameList = articleTagsService.getArticleTags(SystemConstant.ARTICLE_TAGS_START + articleId + SystemConstant.ARTICLE_TAGS_END);
+		Map<Long, ArticleSort> articleSortMap = this.initPage();
+		
+		model.addAttribute("article", article);
+		model.addAttribute("articleSortMap", articleSortMap);
+		model.addAttribute("articleSortName", articleSortName);
+		model.addAttribute("articleTagsNameList", articleTagsNameList);
+		return "articleDetail";
 	}
 
 	private Map<Long, ArticleSort> initPage() {

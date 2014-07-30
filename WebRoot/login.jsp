@@ -29,7 +29,7 @@
 				    	<h3 class="panel-title">用户登录</h3>
 					</div>
 					<div class="panel-body">
-						<form action="LoginAction.do" method="post">
+						<form action="LoginAction.login" method="post">
 						    <div class="form-group">
 						    	<h4>username:</h4>
 								<input type="text" name="userName" class="form-control" placeholder="username"><br/>

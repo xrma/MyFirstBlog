@@ -16,12 +16,21 @@ import java.io.Serializable;
  */
 public class Article implements Serializable {
 	private static final long serialVersionUID = 3828287985507938295L;
+	private String articleId;
 	private String title;// 标题
 	private String content;// 内容
 	private String author;
 	private String time;// 时间
 	private String articleSortId;// 分类
 	private String tags;// 标签
+
+	public String getArticleId() {
+		return articleId;
+	}
+
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
+	}
 
 	public String getTitle() {
 		return title;

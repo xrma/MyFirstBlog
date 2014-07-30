@@ -101,5 +101,6 @@
 		<servlet-name>Dispatcher</servlet-name>
 		<url-pattern>*.do</url-pattern>
 		<url-pattern>*.in</url-pattern>
+		<url-pattern>*.login</url-pattern>
 	</servlet-mapping>
 </web-app>

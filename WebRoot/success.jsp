@@ -49,6 +49,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</c:if>
     		</td>
     	</tr>
+    	<tr>
+    		<td>
+    			<button type="button" class="btn btn-primary btn-sm" onclick="javascript:window.location.href = 'GoBackToLogin.do'">返回</button>
+    		</td>
+    	</tr>
     </table>
   </body>
 </html>
