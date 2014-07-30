@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
 
-import com.sunray.dao.SystemParameterDAO;
+import com.sunray.impl.SystemParameterDAO;
 
 /**
  * @Title: SystemInFilter.java

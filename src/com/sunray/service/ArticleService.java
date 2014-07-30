@@ -11,10 +11,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.sunray.dao.ArticleDAO;
-import com.sunray.dao.ArticleSortDAO;
-import com.sunray.dao.ArticleTagsDAO;
 import com.sunray.entity.Article;
+import com.sunray.impl.ArticleDAO;
+import com.sunray.impl.ArticleSortDAO;
+import com.sunray.impl.ArticleTagsDAO;
 import com.sunray.util.SystemConstant;
 
 /**

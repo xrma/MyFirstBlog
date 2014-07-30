@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.sunray.dao.LoginDAO;
 import com.sunray.entity.User;
+import com.sunray.impl.LoginDAO;
 import com.sunray.util.StringUtil;
 
 /**

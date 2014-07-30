@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.sunray.dao.ArticleTagsDAO;
+import com.sunray.impl.ArticleTagsDAO;
 
 /**
  * @author Sunray

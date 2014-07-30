@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sunray.dao;
+package com.sunray.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

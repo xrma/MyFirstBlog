@@ -16,10 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sunray.dao.SystemParameterDAO;
 import com.sunray.entity.Article;
 import com.sunray.entity.ArticleSort;
 import com.sunray.entity.User;
+import com.sunray.impl.SystemParameterDAO;
 import com.sunray.service.ArticleService;
 import com.sunray.service.ArticleSortService;
 import com.sunray.service.ArticleTagsService;

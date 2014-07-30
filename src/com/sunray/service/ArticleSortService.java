@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.sunray.dao.ArticleSortDAO;
+import com.sunray.impl.ArticleSortDAO;
 import com.sunray.util.SystemConstant;
 
 /**

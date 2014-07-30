@@ -75,6 +75,11 @@
 	</filter-mapping>
 	
 	<filter-mapping>
+		<filter-name>ExceptionHandlerFilterProxy</filter-name>
+		<url-pattern>*.login</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>

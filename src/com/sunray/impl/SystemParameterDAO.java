@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sunray.dao;
+package com.sunray.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Repository;
 
-import com.sunray.impl.SystemParameterImpl;
+import com.sunray.dao.SystemParameterImpl;
 import com.sunray.util.SystemConstant;
 
 /**

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sunray.impl;
+package com.sunray.dao;
 
 /** 
  * @Title: SystemParameterImpl.java

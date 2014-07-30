@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sunray.dao;
+package com.sunray.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,8 +17,8 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Repository;
 
+import com.sunray.dao.ArticleImpl;
 import com.sunray.entity.Article;
-import com.sunray.impl.ArticleImpl;
 import com.sunray.util.SystemConstant;
 
 /**
