@@ -38,7 +38,7 @@
 	<div class="jumbotron">
   		<div class="container">
 		  <h1>Hello, Sunray!</h1>
-		  <p>This is my first blog</p>
+		  <p>&nbsp;</p>
 	  	</div>
 	</div>
 	
@@ -71,7 +71,7 @@
 						<p>${articleList.content}</p>
 					</c:forEach>
 				</c:if>
-				<ul class="pagination">
+				<%--<ul class="pagination">
 				  <li class="disabled"><a href="#">&laquo;</a></li>
 				  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
 				  <li><a href="#">2</a></li>
@@ -80,7 +80,7 @@
 				  <li><a href="#">5</a></li>
 				  <li><a href="#">&raquo;</a></li>
 				</ul>
-			</div>
+			--%></div>
 		</div>
 	</div>
 

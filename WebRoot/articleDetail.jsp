@@ -61,7 +61,7 @@
 	<div class="jumbotron">
   		<div class="container">
 		  <h1>Hello, Sunray!</h1>
-		  <p>This is my first blog</p>
+		  <p>&nbsp;</p>
 	  	</div>
 	</div>
 	

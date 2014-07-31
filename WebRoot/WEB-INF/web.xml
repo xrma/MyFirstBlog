@@ -8,6 +8,11 @@
 		<welcome-file>myJsp.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<error-page>
+       <error-code>404</error-code>
+       <location>/error404.jsp</location>
+   </error-page>
+	
 	<context-param>
 		<param-name>system.config.path</param-name>
 		<param-value>./MyFirstWebConfig</param-value>

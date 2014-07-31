@@ -31,26 +31,26 @@
 	<nav class="navbar" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Brand</a>
+				<span class="navbar-brand">Hi,大蕊！</span>
 			</div>
 		
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		        <ul class="nav navbar-nav">
-					<li class="active"><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
+					<li class="active"><a href="GoBackToLogin.do">主页</a></li>
 		        </ul>
-		        <ul class="nav navbar-nav navbar-right">
-       				<li><a href="publishedArticlesForword.do">发表文章</a></li>
-       			</ul>
+		        <c:if test="${!empty user}">
+			        <ul class="nav navbar-nav navbar-right">
+	       				<li><a href="publishedArticlesForword.do">发表文章</a></li>
+	       			</ul>
+       			</c:if>
 	        </div>
-	        
 	    </div>
 	</nav>
 	
 	<div class="jumbotron">
   		<div class="container">
 		  <h1>Hello, Sunray!</h1>
-		  <p>This is my first blog</p>
+		  <p>&nbsp;</p>
 	  	</div>
 	</div>
 	
@@ -84,7 +84,7 @@
 						<p style="width: 300px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">${articleList.content}</p>
 					</c:forEach>
 				</c:if>
-				<ul class="pagination">
+				<%--<ul class="pagination">
 				  <li class="disabled"><a href="#">&laquo;</a></li>
 				  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
 				  <li><a href="#">2</a></li>
@@ -94,7 +94,7 @@
 				  <li><a href="#">&raquo;</a></li>
 				</ul>
 			
-			</div>
+			--%></div>
 		</div>
 	</div>
 

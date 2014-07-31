@@ -57,5 +57,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </table>
   --%>
   	success!
+  	<button type="button" class="btn btn-primary btn-sm" onclick="javascript:window.location.href = 'GoBackToLogin.do'">返回</button>
   </body>
 </html>
