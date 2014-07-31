@@ -10,7 +10,7 @@
 	
 	<context-param>
 		<param-name>system.config.path</param-name>
-		<param-value>C:\Users\sunray\git\MyFirstBlog\MyFirstWebConfig</param-value>
+		<param-value>./MyFirstWebConfig</param-value>
 	</context-param>
 
 	<listener>
