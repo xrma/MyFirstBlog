@@ -20,20 +20,42 @@
     <![endif]-->
   </head>
   <body>
-  	
-	<nav class="navbar" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<span class="navbar-brand">Hi,大蕊！</span>
-			</div>
-		
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		        <ul class="nav navbar-nav">
-					<li class="active"><a href="index.in">主页</a></li>
-		        </ul>
-	        </div>
-	    </div>
-	</nav>
+	<c:if test="${!empty user}">
+		<nav class="navbar" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<span class="navbar-brand">Hi,大蕊！</span>
+				</div>
+			
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			        <ul class="nav navbar-nav">
+						<li class="active"><a href="GoBackToLogin.do">主页</a></li>
+			        </ul>
+			        <c:if test="${!empty user}">
+				        <ul class="nav navbar-nav navbar-right">
+		       				<li><a href="publishedArticlesForword.do">发表文章</a></li>
+		       			</ul>
+	       			</c:if>
+		        </div>
+		    </div>
+		</nav>
+	</c:if>
+	
+	<c:if test="${empty user}">
+		<nav class="navbar" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<span class="navbar-brand">Hi,大蕊！</span>
+				</div>
+			
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			        <ul class="nav navbar-nav">
+						<li class="active"><a href="index.in">主页</a></li>
+			        </ul>
+		        </div>
+		    </div>
+		</nav>
+	</c:if>
 	
 	<div class="jumbotron">
   		<div class="container">
@@ -61,25 +83,29 @@
 					</div>
 					
 				</div>
-				
-				<p>博客访问量：${visitCount}</p>
 			</div>
 			<div class="col-xs-12 col-md-8">
 				<c:if test="${!empty articleList}">
-					<c:forEach items="${articleList}" var="articleList">
-						<h3><a href="ArticleDetail.login?articleId=${articleList.articleId}">${articleList.title}</a></h3>
-						<p>${articleList.content}</p>
-					</c:forEach>
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan="2">${thisSortName}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${articleList}" var="articleList">
+								<tr>
+									<td>
+										<h4><a href="ArticleDetail.login?articleId=${articleList.articleId}">${articleList.title}</a></h4>
+									</td>
+									<td align="right">
+										<h6>${articleList.time}</h6>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</c:if>
-				<ul class="pagination">
-				  <li class="disabled"><a href="#">&laquo;</a></li>
-				  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#">&raquo;</a></li>
-				</ul>
 			</div>
 		</div>
 	</div>

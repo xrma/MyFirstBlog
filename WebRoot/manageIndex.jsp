@@ -18,6 +18,13 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <script type="text/javascript">
+		$(document).ready(function(){
+			var p = $("p").val();
+			p.length<=500?$(this).html
+		})
+    </script>
   </head>
   <body>
   	
@@ -60,7 +67,7 @@
 						  </a>--%>
 						  <c:if test="${!empty articleSortMap}">
 							  <c:forEach items="${articleSortMap}" var="articleSortMap">
-							  	<a href="#" class="list-group-item"><span class="badge">${articleSortMap.value.articleCount}</span>${articleSortMap.value.articleSortName}</a>
+							  	<a href="SortDetail.do?articleSortId=${articleSortMap.value.articleSortId}" class="list-group-item"><span class="badge">${articleSortMap.value.articleCount}</span>${articleSortMap.value.articleSortName}</a>
 							  </c:forEach>
 						  </c:if>
 					</div>
@@ -72,8 +79,9 @@
 			<div class="col-xs-12 col-md-8">
 				<c:if test="${!empty articleList}">
 					<c:forEach items="${articleList}" var="articleList">
-						<h3>${articleList.title}<!-- <span class="label label-default">New</span> --></h3>
-						<p>${articleList.content}</p>
+						<h3><a href="ArticleDetail.do?articleId=${articleList.articleId}">${articleList.title}</a></h3>
+						<h5><a href="publishedArticlesForword.do">编辑</a>|<a href="DeleteArticle.do?articleId=${articleList.articleId}&sortId=${articleList.articleSortId}">删除</a></h5>
+						<p style="width: 300px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">${articleList.content}</p>
 					</c:forEach>
 				</c:if>
 				<ul class="pagination">

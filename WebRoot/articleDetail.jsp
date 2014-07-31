@@ -21,20 +21,42 @@
   </head>
   <body>
   	
-	<nav class="navbar" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Brand</a>
-			</div>
-		
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		        <ul class="nav navbar-nav">
-					<li class="active"><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-		        </ul>
-	        </div>
-	    </div>
-	</nav>
+	<c:if test="${!empty user}">
+		<nav class="navbar" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<span class="navbar-brand">Hi,大蕊！</span>
+				</div>
+			
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			        <ul class="nav navbar-nav">
+						<li class="active"><a href="GoBackToLogin.do">主页</a></li>
+			        </ul>
+			        <c:if test="${!empty user}">
+				        <ul class="nav navbar-nav navbar-right">
+		       				<li><a href="publishedArticlesForword.do">发表文章</a></li>
+		       			</ul>
+	       			</c:if>
+		        </div>
+		    </div>
+		</nav>
+	</c:if>
+	
+	<c:if test="${empty user}">
+		<nav class="navbar" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<span class="navbar-brand">Hi,大蕊！</span>
+				</div>
+			
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			        <ul class="nav navbar-nav">
+						<li class="active"><a href="index.in">主页</a></li>
+			        </ul>
+		        </div>
+		    </div>
+		</nav>
+	</c:if>
 	
 	<div class="jumbotron">
   		<div class="container">
@@ -56,7 +78,12 @@
 						  </a>--%>
 						  <c:if test="${!empty articleSortMap}">
 							  <c:forEach items="${articleSortMap}" var="articleSortMap">
-							  	<a href="#" class="list-group-item"><span class="badge">${articleSortMap.value.articleCount}</span>${articleSortMap.value.articleSortName}</a>
+							  	<c:if test="${!empty user}">
+							  		<a href="SortDetail.do?articleSortId=${articleSortMap.value.articleSortId}" class="list-group-item"><span class="badge">${articleSortMap.value.articleCount}</span>${articleSortMap.value.articleSortName}</a>
+							  	</c:if>
+							  	<c:if test="${empty user}">
+							  		<a href="SortDetail.login?articleSortId=${articleSortMap.value.articleSortId}" class="list-group-item"><span class="badge">${articleSortMap.value.articleCount}</span>${articleSortMap.value.articleSortName}</a>
+							  	</c:if>
 							  </c:forEach>
 						  </c:if>
 					</div>

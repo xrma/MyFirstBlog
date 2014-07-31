@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <table>
+    <%--<table>
     	<tr>
     		<td>文章标题：${title}</td>
     	</tr>
@@ -55,5 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</td>
     	</tr>
     </table>
+  --%>
+  	success!
   </body>
 </html>

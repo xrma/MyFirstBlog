@@ -37,4 +37,8 @@ public interface ArticleImpl {
     void saveArticle(String articleId, Article article);
     
     void saveArticleIdList(String articleId);
+    
+    void delArticle(String articleId);
+
+    void delArticleIdFromArticleIdList(String articleIdKey);
 }

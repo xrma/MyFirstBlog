@@ -37,8 +37,14 @@ public class ArticleSortService {
 		return articleSortDAO.getArticleSortName(articleSortKey);
 	}
 	
-	public List<String> getArticleIdList(String articleSortId){
+	public List<String> getArticleIdList(String articleSortId, Long begin, Long end){
 	    String articleSortKey = SystemConstant.SORT + articleSortId;
-	    return articleSortDAO.getArticleIdByArticleSortId(articleSortKey);
+	    return articleSortDAO.getArticleIdByArticleSortId(articleSortKey, begin, end);
+	}
+	
+	public void delArticleIdFromSortId(String sortId, String articleId){
+	    String sortIdKey = SystemConstant.SORT + sortId;
+	    String articleIdKey = articleId;
+	    articleSortDAO.delArticleIdFromSortId(sortIdKey, articleIdKey);
 	}
 }

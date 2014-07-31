@@ -41,6 +41,9 @@
 	    <property name="port">
 	    	<value>${redis.port}</value>
 	    </property>
+	    <property name="password">
+	    	<value>${redis.password}</value>
+	    </property>
 	    <property name="poolConfig">
 	    	<ref local="jedisPoolConfig"/>
 	    </property>

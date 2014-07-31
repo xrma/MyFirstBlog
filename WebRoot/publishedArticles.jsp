@@ -79,21 +79,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body onload="getArticleSort();">
 <%--    <textarea id="editor1" class="ckeditor">Sample Text</textarea> --%>
 
-		<nav class="navbar" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Brand</a>
-				</div>
-			
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			        <ul class="nav navbar-nav">
-						<li class="active"><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-			        </ul>
-		        </div>
-		        
-		    </div>
-		</nav>
+	<nav class="navbar" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<span class="navbar-brand">Hi,大蕊！</span>
+			</div>
+		
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		        <ul class="nav navbar-nav">
+					<li class="active"><a href="index.in">主页</a></li>
+		        </ul>
+	        </div>
+	    </div>
+	</nav>
 		
 		<div class="container">
 			<form action="publishedArticles.do" method="post">

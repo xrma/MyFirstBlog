@@ -73,6 +73,7 @@ public class ExceptionHandlerFilter implements Filter {
             request.setAttribute("errorCode", errorCode);
             request.setAttribute("errorMessage", errorMessage);
             logger.error("error" + e);
+            e.printStackTrace();
             request.getRequestDispatcher("common/error.jsp").forward(request, response);
         }
     }

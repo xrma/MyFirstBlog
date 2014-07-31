@@ -3,6 +3,7 @@
  */
 package com.sunray.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,103 +38,162 @@ import com.sunray.util.SystemConstant;
  */
 @Controller
 public class LoginAction {
-	@Resource
-	private LoginService loginService;
-	@Resource
-	private ArticleService articleService;
-	@Resource
-	private SystemParameterDAO systemParameterDAO;
-	@Resource
-	private ArticleSortService articleSortService;
-	@Resource
-	public ArticleTagsService articleTagsService;
+    @Resource
+    private LoginService loginService;
+    @Resource
+    private ArticleService articleService;
+    @Resource
+    private SystemParameterDAO systemParameterDAO;
+    @Resource
+    private ArticleSortService articleSortService;
+    @Resource
+    public ArticleTagsService articleTagsService;
 
-	@RequestMapping("/index.in")
-	public String goToIndex(Model model) {
-		// List<Article> articleList = this.getArticle();
-		// request.setAttribute("articleList", articleList);
-		// 1. 访问量
-		Long visitCount = Long.parseLong(systemParameterDAO.getCount()) + 1953L;
-		Map<Long, ArticleSort> articleSortMap = this.initPage();
-		// 文章列表
-		List<Article> articleList = this.getArticle();
-		model.addAttribute("visitCount", visitCount);
-		model.addAttribute("articleSortMap", articleSortMap);
-		model.addAttribute("articleList", articleList);
-		return "index";
-	}
+    @RequestMapping("/index.in")
+    public String goToIndex(Model model) {
+        // List<Article> articleList = this.getArticle();
+        // request.setAttribute("articleList", articleList);
+        // 1. 访问量
+        Long visitCount = Long.parseLong(systemParameterDAO.getCount()) + 1953L;
+        Map<Long, ArticleSort> articleSortMap = this.initPage();
+        // 文章列表
+        List<Article> articleList = this.getArticle();
+        model.addAttribute("visitCount", visitCount);
+        model.addAttribute("articleSortMap", articleSortMap);
+        model.addAttribute("articleList", articleList);
+        return "index";
+    }
 
-	private List<Article> getArticle() {
-		Long begin = 0L;
-		Long end = 9L;
-		List<Article> articleList = articleService.getAricleList(begin, end);
-		return articleList;
-	}
+    private List<Article> getArticle() {
+        Long begin = 0L;
+        Long end = 9L;
+        List<Article> articleList = articleService.getAricleList(begin, end);
+        return articleList;
+    }
 
-	@RequestMapping("/LoginAction.login")
-	public String forward(HttpSession session, HttpServletRequest request, HttpServletResponse response, User user, Model model) {
-		boolean isExistsUser = loginService.isExistsUser(user);
-		if (isExistsUser) {
-		    session.setAttribute("user", user);
-			// 1. 访问量
-			Long visitCount = Long.parseLong(systemParameterDAO.getCount());
-			Map<Long, ArticleSort> articleSortMap = this.initPage();
-			// 文章列表
-			List<Article> articleList = this.getArticle();
-			model.addAttribute("visitCount", visitCount);
-			model.addAttribute("articleSortMap", articleSortMap);
-			model.addAttribute("articleList", articleList);
-			return "/manageIndex";
-		} else {
-			return "/error";
-		}
-	}
-	
-	@RequestMapping("/GoBackToLogin.do")
-	public String goBackToLogin(Model model){
-		Long visitCount = Long.parseLong(systemParameterDAO.getCount());
-		Map<Long, ArticleSort> articleSortMap = this.initPage();
-		// 文章列表
-		List<Article> articleList = this.getArticle();
-		model.addAttribute("visitCount", visitCount);
-		model.addAttribute("articleSortMap", articleSortMap);
-		model.addAttribute("articleList", articleList);
-		return "/manageIndex";
-	}
-	
-	@RequestMapping("/ArticleDetail.login")
-	public String getArticle(String articleId, Model model){
-		Article article = articleService.getArticle(articleId);
-		String articleSortId = article.getArticleSortId();
-		String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + articleSortId + SystemConstant.SORT_NAME_END);
-		List<String> articleTagsNameList = articleTagsService.getArticleTags(SystemConstant.ARTICLE_TAGS_START + articleId + SystemConstant.ARTICLE_TAGS_END);
-		Map<Long, ArticleSort> articleSortMap = this.initPage();
-		
-		model.addAttribute("article", article);
-		model.addAttribute("articleSortMap", articleSortMap);
-		model.addAttribute("articleSortName", articleSortName);
-		model.addAttribute("articleTagsNameList", articleTagsNameList);
-		return "articleDetail";
-	}
+    @RequestMapping("/LoginAction.login")
+    public String forward(HttpSession session, HttpServletRequest request, HttpServletResponse response, User user, Model model) {
+        boolean isExistsUser = loginService.isExistsUser(user);
+        if (isExistsUser) {
+            session.setAttribute("user", user);
+            // 1. 访问量
+            Long visitCount = Long.parseLong(systemParameterDAO.getCount());
+            Map<Long, ArticleSort> articleSortMap = this.initPage();
+            // 文章列表
+            List<Article> articleList = this.getArticle();
+            model.addAttribute("visitCount", visitCount);
+            model.addAttribute("articleSortMap", articleSortMap);
+            model.addAttribute("articleList", articleList);
+            return "/manageIndex";
+        } else {
+            return "/error";
+        }
+    }
 
-	private Map<Long, ArticleSort> initPage() {
-		// 2. 获得所有文章分类
-		// 2.1 查询文章分类最大值
-		Long maxSortId = articleSortService.getArticleSortId();
-		// 2.2 查询所有文章分类
-		Map<Long, ArticleSort> articleSortMap = new HashMap<Long, ArticleSort>();
-		if (maxSortId != null) {
-			for (int i = 1; i <= maxSortId; i++) {
-				ArticleSort articleSort = new ArticleSort();
-				articleSort.setArticleSortId(Long.valueOf(i));
-				String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + i + SystemConstant.SORT_NAME_END);
-				articleSort.setArticleSortName(articleSortName);
+    @RequestMapping("/GoBackToLogin.do")
+    public String goBackToLogin(Model model) {
+        Long visitCount = Long.parseLong(systemParameterDAO.getCount());
+        Map<Long, ArticleSort> articleSortMap = this.initPage();
+        // 文章列表
+        List<Article> articleList = this.getArticle();
+        model.addAttribute("visitCount", visitCount);
+        model.addAttribute("articleSortMap", articleSortMap);
+        model.addAttribute("articleList", articleList);
+        return "/manageIndex";
+    }
 
-				List<String> articleIdList = articleSortService.getArticleIdList(i + "");
-				articleSort.setArticleCount(articleIdList.size());
-				articleSortMap.put(articleSort.getArticleSortId(), articleSort);
-			}
-		}
-		return articleSortMap;
-	}
+    @RequestMapping("/ArticleDetail.login")
+    public String getArticle(String articleId, Model model) {
+        Article article = articleService.getArticle(articleId);
+        String articleSortId = article.getArticleSortId();
+        String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + articleSortId + SystemConstant.SORT_NAME_END);
+        List<String> articleTagsNameList = articleTagsService.getArticleTags(SystemConstant.ARTICLE_TAGS_START + articleId + SystemConstant.ARTICLE_TAGS_END);
+        Map<Long, ArticleSort> articleSortMap = this.initPage();
+
+        model.addAttribute("article", article);
+        model.addAttribute("articleSortMap", articleSortMap);
+        model.addAttribute("articleSortName", articleSortName);
+        model.addAttribute("articleTagsNameList", articleTagsNameList);
+        return "articleDetail";
+    }
+
+    @RequestMapping("/ArticleDetail.do")
+    public String getArticleDetail(HttpServletRequest request, String articleId, Model model) {
+        User user = (User) request.getSession().getAttribute("user");
+        Article article = articleService.getArticle(articleId);
+        String articleSortId = article.getArticleSortId();
+        String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + articleSortId + SystemConstant.SORT_NAME_END);
+        List<String> articleTagsNameList = articleTagsService.getArticleTags(SystemConstant.ARTICLE_TAGS_START + articleId + SystemConstant.ARTICLE_TAGS_END);
+        Map<Long, ArticleSort> articleSortMap = this.initPage();
+
+        model.addAttribute("article", article);
+        model.addAttribute("articleSortMap", articleSortMap);
+        model.addAttribute("articleSortName", articleSortName);
+        model.addAttribute("articleTagsNameList", articleTagsNameList);
+        model.addAttribute("user", user);
+        return "articleDetail";
+    }
+
+    private Map<Long, ArticleSort> initPage() {
+        // 2. 获得所有文章分类
+        // 2.1 查询文章分类最大值
+        Long maxSortId = articleSortService.getArticleSortId();
+        // 2.2 查询所有文章分类
+        Map<Long, ArticleSort> articleSortMap = new HashMap<Long, ArticleSort>();
+        if (maxSortId != null) {
+            for (int i = 1; i <= maxSortId; i++) {
+                ArticleSort articleSort = new ArticleSort();
+                articleSort.setArticleSortId(Long.valueOf(i));
+                String articleSortName = articleSortService.getArticleSortName(SystemConstant.SORT_NAME_START + i + SystemConstant.SORT_NAME_END);
+                articleSort.setArticleSortName(articleSortName);
+
+                List<String> articleIdList = articleSortService.getArticleIdList(i + "", 0L, -1L);
+                articleSort.setArticleCount(articleIdList.size());
+                articleSortMap.put(articleSort.getArticleSortId(), articleSort);
+            }
+        }
+        return articleSortMap;
+    }
+
+    @RequestMapping("/SortDetail.login")
+    public String getSortDetail(String articleSortId, Model model) {
+        Long begin = 0L;
+        Long end = 9L;
+        List<String> getArticleIdList = articleSortService.getArticleIdList(articleSortId, begin, end);
+        List<Article> articleList = new ArrayList<Article>();
+        for (String articleId : getArticleIdList) {
+            Article article = articleService.getArticle(articleId);
+            articleList.add(article);
+        }
+        
+        Map<Long, ArticleSort> articleSortMap = this.initPage();
+        String thisSortName = articleSortMap.get(Long.parseLong(articleSortId)).getArticleSortName();
+        
+        model.addAttribute("articleList", articleList);
+        model.addAttribute("articleSortMap", articleSortMap);
+        model.addAttribute("thisSortName", thisSortName);
+        return "sortDetail";
+    }
+    
+    @RequestMapping("/SortDetail.do")
+    public String getSortDetailUser(HttpServletRequest request, String articleSortId, Model model) {
+        User user = (User) request.getSession().getAttribute("user");
+        Long begin = 0L;
+        Long end = 9L;
+        List<String> getArticleIdList = articleSortService.getArticleIdList(articleSortId, begin, end);
+        List<Article> articleList = new ArrayList<Article>();
+        for (String articleId : getArticleIdList) {
+            Article article = articleService.getArticle(articleId);
+            articleList.add(article);
+        }
+        
+        Map<Long, ArticleSort> articleSortMap = this.initPage();
+        String thisSortName = articleSortMap.get(Long.parseLong(articleSortId)).getArticleSortName();
+        
+        model.addAttribute("articleList", articleList);
+        model.addAttribute("articleSortMap", articleSortMap);
+        model.addAttribute("thisSortName", thisSortName);
+        model.addAttribute("user", user);
+        return "sortDetail";
+    }
 }

@@ -20,5 +20,7 @@ public interface ArticleSortImpl {
 	
 	public void saveArticleSortList(String articleId, String articleSortId);
 	
-	public List<String> getArticleIdByArticleSortId(String articleSortKey);
+    List<String> getArticleIdByArticleSortId(String articleSortKey, Long begin, Long end);
+    
+    void delArticleIdFromSortId(String sortId, String articleId);
 }

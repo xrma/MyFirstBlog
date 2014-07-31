@@ -77,9 +77,14 @@ public class ArticleService {
     	articleDAO.saveArticle(articleKey, article);
     }
     
-    public void saveArticleIdList(Long aricleId){
-    	String articleIdKey = SystemConstant.ARTICLE_TAGS_START + aricleId;
+    public void saveArticleIdList(Long articleId){
+    	String articleIdKey = SystemConstant.ARTICLE_TAGS_START + articleId;
     	articleDAO.saveArticleIdList(articleIdKey);
+    }
+    
+    public void delArticleIdFromArticleIdList(String articleId){
+        String articleIdKey = SystemConstant.ARTICLE_TAGS_START + articleId;
+        articleDAO.delArticleIdFromArticleIdList(articleIdKey);
     }
     
     public void saveArticleSortList(String articleSortId, String articleId){
@@ -90,5 +95,10 @@ public class ArticleService {
     public void saveArticleTags(String articleId, String[] articleTagsArr){
     	String articleTagsKEY = SystemConstant.ARTICLE_TAGS_START + articleId + SystemConstant.ARTICLE_TAGS_END;
     	articleTagsDAO.saveArticleTags(articleTagsKEY, articleTagsArr);
+    }
+    
+    public void delAeticle(String articleId){
+        String articleIdKey = SystemConstant.ARTICLE_TAGS_START + articleId;
+        articleDAO.delArticle(articleIdKey);
     }
 }
