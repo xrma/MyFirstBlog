@@ -80,7 +80,7 @@
 				<c:if test="${!empty articleList}">
 					<c:forEach items="${articleList}" var="articleList">
 						<h3><a href="ArticleDetail.do?articleId=${articleList.articleId}">${articleList.title}</a></h3>
-						<h5><a href="publishedArticlesForword.do">编辑</a>|<a href="DeleteArticle.do?articleId=${articleList.articleId}&sortId=${articleList.articleSortId}">删除</a></h5>
+						<h5><a href="modifyArticle.do?articleId=${articleList.articleId}">编辑</a>|<a href="DeleteArticle.do?articleId=${articleList.articleId}&sortId=${articleList.articleSortId}">删除</a></h5>
 						<p style="width: 300px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">${articleList.content}</p>
 					</c:forEach>
 				</c:if>

@@ -36,5 +36,7 @@ public class SystemConstant {
 	// 文章id List 每篇文章的id单独存在一个list里，分页用
 	public static final String ARTICLE_ID_LIST = "articleIdList";
 	public static final int pageCount = 5;
+	
+	public static final int articleLength = 500;
 
 }

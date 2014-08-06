@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				<tr>
 	  					<td>
 	  						<h5>
-	  							文章标题：<input name="title"/>
+	  							文章标题：<input name="title" value="${article.title}"/>
 	  						</h5>
 	  					</td>
 	  				</tr>
@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				<tr>
 	  					<td>
 	  						<h5>文章正文：</h5>
-	  						<textarea id="content" class="ckeditor" name="content" style="width: 800px;"></textarea>
+	  						<textarea id="content" class="ckeditor" name="content" style="width: 800px;">${article.content}</textarea>
 	  					</td>
 	  				</tr>
 	  				<tr>
@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				<tr>
 	  					<td>
 	  						<h5>
-	  							文章标签：<input name="tags"/>标签用“空格”隔开。
+	  							文章标签：<input name="tags" value="${articleTagsStr}"/>标签用“空格”隔开。
 	  						</h5>
 	  					</td>
 	  				</tr>

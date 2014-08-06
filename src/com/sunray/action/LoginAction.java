@@ -68,6 +68,13 @@ public class LoginAction {
         Long begin = 0L;
         Long end = 9L;
         List<Article> articleList = articleService.getAricleList(begin, end);
+        for(Article article : articleList){
+            String articleContent = article.getContent();
+            if(articleContent.length() >= 500){
+                articleContent = articleContent.substring(0, 500) + "<p><b>...</b></p>";
+            }
+            article.setContent(articleContent);
+        }
         return articleList;
     }
 
